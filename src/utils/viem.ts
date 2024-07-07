@@ -83,6 +83,45 @@ export const getNetworkIdentifier = (chainId: number) => {
   }
 };
 
+export const getChainId = (networkIdentifier: NetworkIdentifier): number | null => {
+  switch (networkIdentifier) {
+    case NetworkIdentifier.ETH_SEPOLIA:
+      return sepolia.id;
+    case NetworkIdentifier.ETH_GOERLI:
+      return goerli.id;
+    case NetworkIdentifier.OPT_GOERLI:
+      return optimismGoerli.id;
+    case NetworkIdentifier.MATIC_MAINNET:
+      return polygon.id;
+    case NetworkIdentifier.OPT_MAINNET:
+      return optimism.id;
+    case NetworkIdentifier.ETH_MAINNET:
+      return mainnet.id;
+    case NetworkIdentifier.ARB_MAINNET:
+      return arbitrum.id;
+    case NetworkIdentifier.ZORA_MAINNET:
+      return zora.id;
+    case NetworkIdentifier.ZKSYNC_MAINNET:
+      return zkSync.id;
+    case NetworkIdentifier.SCROLL_MAINNET:
+      return scroll.id;
+    case NetworkIdentifier.BASE_MAINNET:
+      return base.id;
+    case NetworkIdentifier.MANTLE_MAINNET:
+      return mantle.id;
+    case NetworkIdentifier.BLAST_MAINNET:
+      return blast.id;
+    case NetworkIdentifier.DEGEN_MAINNET:
+      return degen.id;
+    case NetworkIdentifier.CYBER_MAINNET:
+      return cyber.id;
+    case NetworkIdentifier.BASE_SEPOLIA:
+      return baseSepolia.id;
+    default:
+      return null;
+  }
+};
+
 export const networkIdentifierToViemChain = (network: NetworkIdentifier): Chain => {
   switch (network) {
     case NetworkIdentifier.ARB_MAINNET:

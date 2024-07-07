@@ -2,12 +2,38 @@ import React from 'react';
 import styles from '../styles/BoostList.module.css';
 import BoostCard from './BoostCard';
 import { Boost } from '../schemas';
+import { prepareWithdrawPayload, MULTICALL_ABI, MULTICALL_ADDRESS } from '../utils/multicall';
+import { useAccount, useWriteContract, useSwitchChain } from 'wagmi';
+import { NetworkIdentifier, getChainId } from '../utils/viem';
 
-const NetworkSection: React.FC<{ network: string, data: Boost[] }> = ({ network, data }) => {
-  const handleWithdraw = (network: string) => {
-    // TODO: Implement withdraw logic
-    console.log(`Withdrawing from network: ${network}`);
-  
+const NetworkSection: React.FC<{ network: NetworkIdentifier, data: Boost[] }> = ({ network, data }) => {
+
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
+
+  const targetChainId = getChainId(network);
+  const isCorrectChain = chain?.id === targetChainId;
+
+  const handleSwitchChain = () => {
+    if (targetChainId) {
+      switchChain({ chainId: targetChainId });
+    }
+  };
+
+  const { writeContract } = useWriteContract()
+
+  const handleWithdraw = () => {
+
+    if (isCorrectChain) {
+      const calls = prepareWithdrawPayload(data);
+
+      writeContract({
+        address: MULTICALL_ADDRESS,
+        abi: MULTICALL_ABI,
+        functionName: 'aggregate3',
+        args: [calls],
+      });
+    }
   };
 
   return (
@@ -15,9 +41,18 @@ const NetworkSection: React.FC<{ network: string, data: Boost[] }> = ({ network,
       <div className={styles.networkSection}>
         <div className={styles.networkHeader}>
           <h3>{network}</h3>
+          {!isCorrectChain && (
+            <button
+              onClick={handleSwitchChain}
+              className={styles.switchChainButton}
+            >
+              Switch to {network}
+            </button>
+          )}
           <button
-            onClick={() => handleWithdraw(network)}
+            onClick={handleWithdraw}
             className={styles.withdrawButton}
+            disabled={!isCorrectChain}
           >
             Withdraw All
           </button>
