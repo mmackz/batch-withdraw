@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { NetworkIdentifier } from '../utils/viem';
 
 const BoostSchema = z.object({
   id: z.string(),
@@ -19,6 +20,6 @@ const BoostSchema = z.object({
 
 export type Boost = z.infer<typeof BoostSchema>;
 
-export interface BoostsByNetwork {
-  [network: string]: Boost[]
+export type BoostsByNetwork = {
+  [K in NetworkIdentifier]: Boost[]
 }

@@ -3,6 +3,7 @@ import styles from '../styles/BoostList.module.css';
 import { Address, isAddress } from 'viem';
 import NetworkSection from './NetworkSection';
 import { BoostsByNetwork } from '../schemas';
+import { NetworkIdentifier } from '../utils/viem';
 
 const fetchBoosts = async (address: Address) => {
   if (!address || !isAddress(address)) return null;
@@ -60,7 +61,7 @@ const BoostList = () => {
       {data && Object.keys(data).length > 0 ? (
         <div className={styles.boostList}>
         {Object.entries(data).map(([network, networkData]) => {
-          return <NetworkSection key={network} network={network} data={networkData} />;
+          return <NetworkSection key={network} network={network as NetworkIdentifier} data={networkData} />;
         })}
         </div>
       ) : data ? (
