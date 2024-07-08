@@ -10,7 +10,7 @@ const BoostSchema = z.object({
   boostEnd: z.union([z.date(), z.string()]),
   boostStart: z.union([z.date(), z.string()]),
   description: z.string(),
-  network: z.string(),
+  network: z.nativeEnum(NetworkIdentifier),
   receiptsMinted: z.number(),
   status: z.string(),
   createdAt: z.union([z.date(), z.string()]),

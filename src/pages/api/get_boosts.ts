@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isAddress } from 'viem';
 import { getWithdrawableBoosts } from '../../utils/getWithdrawableBoosts';
+import { BoostsByNetwork } from '../../schemas';
 
 export const config = {
   maxDuration: 60,
@@ -35,13 +36,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const withdrawableBoosts = await getWithdrawableBoosts(allBoosts);
 
     // Separate boosts by network
-    const boostsByNetwork = withdrawableBoosts.reduce((acc, boost) => {
+    const boostsByNetwork = withdrawableBoosts.reduce<BoostsByNetwork>((acc, boost) => {
       if (!acc[boost.network]) {
         acc[boost.network] = [];
       }
       acc[boost.network].push(boost);
       return acc;
-    }, {});
+    }, {} as BoostsByNetwork);
 
     res.status(200).json(boostsByNetwork);
   } catch (error) {
