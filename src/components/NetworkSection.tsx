@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../styles/BoostList.module.css';
+import styles from '../styles/NetworkSection.module.css';
 import BoostCard from './BoostCard';
 import { Boost } from '../schemas';
 import { prepareWithdrawPayload, MULTICALL_ABI, MULTICALL_ADDRESS } from '../utils/multicall';
@@ -41,21 +40,24 @@ const NetworkSection: React.FC<{ network: NetworkIdentifier, data: Boost[] }> = 
       <div className={styles.networkSection}>
         <div className={styles.networkHeader}>
           <h3>{network}</h3>
-          {!isCorrectChain && (
+          <div className={styles.buttonContainer}>
+
             <button
               onClick={handleSwitchChain}
               className={styles.switchChainButton}
+              disabled={isCorrectChain}
             >
               Switch to {network}
             </button>
-          )}
-          <button
-            onClick={handleWithdraw}
-            className={styles.withdrawButton}
-            disabled={!isCorrectChain}
-          >
-            Withdraw All
-          </button>
+
+            <button
+              onClick={handleWithdraw}
+              className={styles.withdrawButton}
+              disabled={!isCorrectChain}
+            >
+              Withdraw All
+            </button>
+          </div>
         </div>
         <div className={styles.boostGrid}>
           {data.map((boost) => (

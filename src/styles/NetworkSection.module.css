@@ -18,17 +18,42 @@
   color: #333;
 }
 
-.withdrawButton {
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.withdrawButton, .switchChainButton {
   padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.withdrawButton {
+  background-color: #4CAF50;
+  color: white;
 }
 
 .withdrawButton:hover {
   background-color: #45a049;
+}
+
+.switchChainButton:hover {
+  background-color: #2980b9;
+}
+
+.withdrawButton:disabled, 
+.switchChainButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.switchChainButton {
+  background-color: #3498db;
+  color: white;
 }
 
 .boostGrid {
