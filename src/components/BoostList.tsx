@@ -43,7 +43,7 @@ const BoostList = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Boost Lookup</h2>
+      <h2>Find Boosts to withdraw</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -55,7 +55,7 @@ const BoostList = () => {
         <button type="submit" className={styles.button}>Look up Boosts</button>
       </form>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p>Loading... (can take up to 1 minute)</p>}
       {error && <p className={styles.error}>{error}</p>}
 
       {data && Object.keys(data).length > 0 ? (
