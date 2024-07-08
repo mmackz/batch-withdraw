@@ -3,7 +3,7 @@ import { isAddress } from 'viem';
 import { getWithdrawableBoosts } from '../../utils/getWithdrawableBoosts';
 
 export const config = {
-  maxDuration: 5,
+  maxDuration: 60,
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
