@@ -2,7 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { isAddress } from 'viem';
 import { getWithdrawableBoosts } from '../../utils/getWithdrawableBoosts';
 
-const maxDuration = 60;
+export const config = {
+  maxDuration: 5,
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { address } = req.query;
